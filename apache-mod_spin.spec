@@ -9,7 +9,7 @@
 Summary:	mod_spin Apache module
 Name:		apache-%{mod_name}
 Version:	1.0.12
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		System/Servers
 License:	GPL
 URL:		http://www.rexursive.com/software/modspin/
@@ -32,7 +32,7 @@ BuildRequires:	flex >= 2.5.33
 BuildRequires:	libapreq-devel >= 2.07
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
-BuildRequires:	MySQL-devel
+BuildRequires:	mysql-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	tetex-latex
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
