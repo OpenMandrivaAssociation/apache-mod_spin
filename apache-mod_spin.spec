@@ -4,18 +4,20 @@
 %define mod_so %{mod_name}.so
 
 %define	major 0
-%define libname	%mklibname rxv_spin %{major}
+%define libname %mklibname rxv_spin %{major}
+%define develname %mklibname rxv_spin -d
 
 Summary:	mod_spin Apache module
 Name:		apache-%{mod_name}
-Version:	1.0.12
-Release:	%mkrel 3
+Version:	1.1.6
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://www.rexursive.com/software/modspin/
 Source0:	ftp://ftp.rexursive.com/pub/mod-spin/%{mod_name}-%{version}.tar.bz2
 Source1:	%{mod_conf}
-Patch0:		mod_spin-1.0.10-no_strip.diff
+Patch0:		mod_spin-no_strip.diff
+Patch1:		mod_spin-borked_docs.diff
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -53,14 +55,16 @@ Group:          System/Libraries
 %description -n	%{libname}
 Shared libraries for %{name}
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Development library and header files for the %{name} library
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}
 Provides:	librxv_spin-devel = %{version}
+Provides:	%{mklibname rxv_spin 0 -d} = %{version}-%{release}
+Obsoletes:	%{mklibname rxv_spin 0 -d}
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 This package contains the static %{libname} library and its header
 files.
 
@@ -68,6 +72,7 @@ files.
 
 %setup -q -n %{mod_name}-%{version}
 %patch0 -p0
+%patch1 -p0
 
 find . -type d -perm 0700 -exec chmod 755 {} \;
 find . -type d -perm 0555 -exec chmod 755 {} \;
@@ -97,7 +102,7 @@ export STRIP="/bin/false"
     --with-flex-reentrant=%{_prefix} \
     --libexecdir="`%{_sbindir}/apxs -q LIBEXECDIR`-extramodules"
 
-make
+make -C src
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -146,7 +151,7 @@ fi
 
 %files
 %defattr(-,root,root,-)
-%doc html_docs/* docs/mod_spin.pdf
+%doc html_docs/* docs/mod_spin.pdf create-store-mysql.sql create-store.sql
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/modules.d/%{mod_conf}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/%{mod_so}
 
@@ -154,7 +159,7 @@ fi
 %defattr(-,root,root)
 %attr(0755,root,root) %{_libdir}/*.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %attr(0755,root,root) %{_bindir}/rxv_spin-config
 %attr(0755,root,root) %{_libdir}/*.a
@@ -162,6 +167,5 @@ fi
 %attr(0755,root,root) %{_libdir}/*.so
 %{_includedir}/*
 %{_datadir}/aclocal/*.m4
+%{_libdir}/pkgconfig/mod_spin.pc
 %{_mandir}/man3/*
-
-
