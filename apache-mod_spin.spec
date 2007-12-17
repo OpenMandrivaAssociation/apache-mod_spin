@@ -37,7 +37,6 @@ BuildRequires:	libxml2-devel
 BuildRequires:	mysql-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	tetex-latex
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 mod_spin is an Apache module that provides (in conjunction with some other
