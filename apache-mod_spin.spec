@@ -9,7 +9,7 @@
 
 Summary:	mod_spin Apache module
 Name:		apache-%{mod_name}
-Version:	1.1.6
+Version:	1.1.7
 Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
