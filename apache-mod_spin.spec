@@ -7,7 +7,7 @@
 %define libname %mklibname rxv_spin %{major}
 %define develname %mklibname rxv_spin -d
 
-Summary:	mod_spin Apache module
+Summary:	Simple template language with data replacement capabilities for Apache
 Name:		apache-%{mod_name}
 Version:	1.1.7
 Release:	%mkrel 1
