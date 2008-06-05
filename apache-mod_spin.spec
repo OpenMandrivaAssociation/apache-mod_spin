@@ -95,7 +95,7 @@ libtoolize --copy --force --automake; aclocal -I m4; autoheader; automake --add-
 
 export STRIP="/bin/false"
 
-%configure2_5x \
+%configure2_5x --localstatedir=/var/lib \
     --enable-packager \
     --with-pgsql \
     --with-mysql \
