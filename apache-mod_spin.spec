@@ -3,14 +3,14 @@
 %define mod_conf A65_%{mod_name}.conf
 %define mod_so %{mod_name}.so
 
-%define	major 0
+%define	major 1
 %define libname %mklibname rxv_spin %{major}
 %define develname %mklibname rxv_spin -d
 
 Summary:	Simple template language with data replacement capabilities for Apache
 Name:		apache-%{mod_name}
-Version:	1.1.7
-Release:	%mkrel 5
+Version:	1.1.8
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://www.rexursive.com/software/modspin/
@@ -105,7 +105,7 @@ export STRIP="/bin/false"
 make -C src
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
 
@@ -151,7 +151,7 @@ fi
 %endif
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
@@ -161,7 +161,7 @@ fi
 
 %files -n %{libname}
 %defattr(-,root,root)
-%attr(0755,root,root) %{_libdir}/*.so.*
+%attr(0755,root,root) %{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
 %defattr(-,root,root)
