@@ -9,8 +9,8 @@
 
 Summary:	Simple template language with data replacement capabilities for Apache
 Name:		apache-%{mod_name}
-Version:	1.1.9
-Release:	%mkrel 2
+Version:	1.2.0
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://www.rexursive.com/software/modspin/
@@ -123,7 +123,7 @@ perl -pi -e "s|/lib\b|/%{_lib}|g" %{buildroot}%{_sysconfdir}/httpd/modules.d/%{m
 # fix docs
 rm -rf html_docs
 cp -rp docs/html html_docs
-chmod 644 html_docs/*
+find html_docs -type f | xargs chmod 644
 rm -f html_docs/installdox
 
 # cleanup
