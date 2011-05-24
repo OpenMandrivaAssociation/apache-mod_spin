@@ -10,7 +10,7 @@
 Summary:	Simple template language with data replacement capabilities for Apache
 Name:		apache-%{mod_name}
 Version:	1.2.0
-Release:	%mkrel 4
+Release:	%mkrel 5
 Group:		System/Servers
 License:	GPL
 URL:		http://www.rexursive.com/software/modspin/
