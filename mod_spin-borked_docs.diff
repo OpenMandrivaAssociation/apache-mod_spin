@@ -1,0 +1,53 @@
+--- Makefile.am	2008-08-07 01:30:27.000000000 +0200
++++ Makefile.am.oden	2009-06-21 19:00:16.000000000 +0200
+@@ -55,50 +55,11 @@
+          docs/man/man3/rxv_spin_entry_functions.3 \
+          docs/man/man3/rxv_spin.h.3
+ 
+-# This should build all documentation
+-docs/man/man3/rxv_spin_as_functions.3: docs
+-
+-tags/apr.tag:
+-	mkdir tags || true
+-	cp $(APR_TAG_FILES_LOCATION)/apr.tag tags || \
+-        (echo '<?xml version="1.0"?><tagfile/>' > $@; touch -r src $@)
+-
+-tags/apu.tag:
+-	mkdir tags || true
+-	cp $(APR_TAG_FILES_LOCATION)/apu.tag tags || \
+-	cp $(APR_TAG_FILES_LOCATION)/apr.tag tags/apu.tag || \
+-        (echo '<?xml version="1.0"?><tagfile/>' > $@; touch -r src $@)
+-
+-tags/apreq2.tag:
+-	mkdir tags || true
+-	cp $(APREQ_TAG_FILES_LOCATION)/apreq2.tag tags || \
+-        (echo '<?xml version="1.0"?><tagfile/>' > $@; touch -r src $@)
+-
+-tags-clean:
+-	rm -f tags/*
+-
+-docs: src/rxv_spin.h README INSTALL COPYING NEWS doxygen.conf \
+-      tags/apr.tag tags/apu.tag tags/apreq2.tag
+-	doxygen doxygen.conf 2>/dev/null && touch docs
+-	sed -e s@'<path>.*</path>'@'<path>$(includedir)</path>'@g \
+-            docs/mod_spin.tag > docs/mod_spin.tag.fixed
+-	mv -f docs/mod_spin.tag.fixed docs/mod_spin.tag
+-	make -iC docs/latex
+-	cp docs/latex/refman.pdf docs/mod_spin.pdf
+-
+-docs-clean:
+-	rm -rf docs tags
+-
+ # Full directories have to be installed separately
+ install-exec-local:
+ 	$(mkinstalldirs) $(DESTDIR)$(libdir)/pkgconfig
+ 	$(INSTALL) -m 644 mod_spin.pc $(DESTDIR)$(libdir)/pkgconfig
+ install-data-local:
+-	$(mkinstalldirs) $(DESTDIR)$(docdir)/html
+-	$(INSTALL_DATA) docs/mod_spin.pdf $(DESTDIR)$(docdir)
+-	$(INSTALL_DATA) docs/*.tag $(DESTDIR)$(docdir)
+-	$(INSTALL_DATA) docs/html/*.{html,css,png,gif} $(DESTDIR)$(docdir)/html 
+-	$(INSTALL_SCRIPT) docs/html/installdox $(DESTDIR)$(docdir)/html 
+ 	$(mkinstalldirs) $(DESTDIR)$(aclocaldir)
+ 	test "`tail -n 1 $(DESTDIR)$(aclocaldir)/mod_spin.m4`" = 'dnl PACKAGE' || \
+         $(INSTALL_DATA) m4/mod_spin.m4 $(DESTDIR)$(aclocaldir) || true
