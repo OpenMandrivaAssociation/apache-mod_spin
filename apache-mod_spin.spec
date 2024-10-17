@@ -13,7 +13,7 @@ Version:	1.2.0
 Release:	%mkrel 6
 Group:		System/Servers
 License:	GPL
-URL:		http://www.rexursive.com/software/modspin/
+URL:		https://www.rexursive.com/software/modspin/
 Source0:	ftp://ftp.rexursive.com/pub/mod-spin/%{mod_name}-%{version}.tar.bz2
 Source1:	%{mod_conf}
 Patch0:		mod_spin-no_strip.diff
